@@ -23,8 +23,6 @@ public class Loan {
     @Column(name="payments")
     private List<Integer> payments = new ArrayList<>();
 
-
-    @Column(name="loanRate")
     private Double loanRate;
 
     public Loan(){}
