@@ -40,7 +40,13 @@ public class LoanController {
     TransactionRepository transactionRepository;
 
     @GetMapping("/loans")
-    public Set<LoanDto> getAllLoans(){
+    public Set<LoanDto> getAllLoans(Authentication authentication){
+
+        Client currentClient = clientRepository.findByEmail(authentication.getName());
+
+        if(currentClient.getEmail().contains("@admin")){
+            return null;
+        }
         return this.loanRepository.findAll().stream().map(LoanDto::new).collect(Collectors.toSet());
     }
 

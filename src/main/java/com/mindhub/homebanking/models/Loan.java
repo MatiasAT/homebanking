@@ -27,14 +27,17 @@ public class Loan {
     @Column(name="loanRate")
     private Double loanRate;
 
+    @Column(name="loanType")
+    private Enum loanType;
 
     public Loan(){}
 
-    public Loan(String name, double maxAmount, List payments, Double loanRate){
+    public Loan(String name, double maxAmount, List payments, Double loanRate, Enum loanType){
          this.name = name;
          this.maxAmount = maxAmount;
          this.payments = payments;
          this.loanRate = loanRate;
+         this.loanType = loanType;
     }
 
     public long getId() {
@@ -79,5 +82,13 @@ public class Loan {
 
     public void setLoanRate(Double loanRate) {
         this.loanRate = loanRate;
+    }
+
+    public Enum getLoanType() {
+        return loanType;
+    }
+
+    public void setLoanType(Enum loanType) {
+        this.loanType = loanType;
     }
 }
