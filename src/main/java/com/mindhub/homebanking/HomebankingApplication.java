@@ -62,10 +62,10 @@ public class HomebankingApplication {
 			accountRepository.save(account1);
 
 
-			Loan prestamo1 = new Loan("Personal Loan", 500000, Arrays.asList(12,24,36,48,60), 1.40);
-			Loan prestamo2 = new Loan("Morgage Loan", 4000000, Arrays.asList(6,12,24),1.64);
-			Loan prestamo3 = new Loan("Card Loan", 1000000, Arrays.asList(6,12,24,36),1.30);
-			Loan prestamo4 = new Loan("Card Loan Admin", 200000, Arrays.asList(6,12),1.10);
+			Loan prestamo1 = new Loan("Personal Loan", 500000, Arrays.asList(12,24,36,48,60), 1.40, LoanType.PERSONAL);
+			Loan prestamo2 = new Loan("Morgage Loan", 4000000, Arrays.asList(6,12,24),1.64, LoanType.MORGAGE);
+			Loan prestamo3 = new Loan("Card Loan", 1000000, Arrays.asList(6,12,24,36),1.30, LoanType.CARD);
+			Loan prestamo4 = new Loan("Card Loan Admin", 200000, Arrays.asList(6,12),1.10, LoanType.CARD);
 			loanRepository.save(prestamo1);
 			loanRepository.save(prestamo2);
 			loanRepository.save(prestamo3);
