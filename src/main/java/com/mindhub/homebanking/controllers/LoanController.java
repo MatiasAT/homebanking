@@ -49,11 +49,11 @@ public class LoanController {
     public ResponseEntity<Object> newLoan(@RequestBody LoanAplicationDto loanAplicationDto, Authentication authentication){
 
 
-        Double loanRate = loanRepository.findById(loanAplicationDto.getLoanId()).orElseThrow().getLoanRate();
+        Double loanRate = loanRepository.findById(loanAplicationDto.getLoanId()).getLoanRate();
         //long loanId, double amount, int payments,String toAccountNumber
         double amount = loanAplicationDto.getAmount();
         double loanAmount = amount*loanRate;
-        Loan loan = loanRepository.getReferenceById(loanAplicationDto.getLoanId());
+        Loan loan = loanRepository.findById(loanAplicationDto.getLoanId());
         int payment = loanAplicationDto.getPayments();
         boolean paymentsFalse = !(loan.getPayments().contains(payment));
 

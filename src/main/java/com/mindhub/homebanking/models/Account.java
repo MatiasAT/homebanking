@@ -2,7 +2,6 @@ package com.mindhub.homebanking.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.data.repository.query.FluentQuery;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
