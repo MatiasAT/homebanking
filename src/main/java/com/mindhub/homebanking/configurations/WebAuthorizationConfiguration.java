@@ -25,11 +25,9 @@ public class WebAuthorizationConfiguration extends WebSecurityConfigurerAdapter 
                 .antMatchers(HttpMethod.POST, "/api/clients/**").permitAll()
                 .antMatchers("/manager.html").hasAuthority("ADMIN")
                 .antMatchers("/api/clients/current/accounts").hasAuthority("CLIENT")
-                .antMatchers("/api/clients/current/accounts").hasAuthority("ADMIN")
                 .antMatchers("/api/clients/current/cards").hasAuthority("CLIENT")
-                .antMatchers("/ api/loans").hasAuthority("CLIENT")
-                .antMatchers("/ api/loans").hasAuthority("ADMIN")
                 .antMatchers("/api/transactions").hasAuthority("CLIENT")
+                .antMatchers("/api/loans").hasAuthority("CLIENT")
                 .antMatchers("/").hasAuthority("CLIENT")
                 .antMatchers("/**").hasAuthority("CLIENT");
 
