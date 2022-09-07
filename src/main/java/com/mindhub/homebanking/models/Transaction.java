@@ -1,10 +1,8 @@
 package com.mindhub.homebanking.models;
 
-import net.bytebuddy.asm.Advice;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -16,6 +14,7 @@ public class Transaction {
     private  String description;
     private LocalDateTime date;
     private double amount;
+    private double currentAmount;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="account_id")
@@ -25,12 +24,13 @@ public class Transaction {
 
     public Transaction (){}
 
-    public Transaction (TransactionType type, String description, LocalDateTime date, double amount, Account account){
+    public Transaction (TransactionType type, String description, LocalDateTime date, double amount, Account account, double currentAmount){
         this.type = type;
         this.description = description;
         this.date = date;
         this.amount = amount;
         this.account = account;
+        this.currentAmount = currentAmount;
     }
 
     public long getId(){
@@ -72,9 +72,15 @@ public class Transaction {
         return account;
     }
 
-    public void setAccounts(Account accounts) {
+    public void addAccounts(Account accounts) {
         account = accounts;
     }
 
+    public double getCurrentAmount() {
+        return currentAmount;
+    }
 
+    public void setCurrentAmount(double currentAmount) {
+        this.currentAmount = currentAmount;
+    }
 }

@@ -1,32 +1,28 @@
 package com.mindhub.homebanking.dtos;
 
-import com.mindhub.homebanking.models.Account;
+import com.mindhub.homebanking.models.Transaction;
 import com.mindhub.homebanking.models.TransactionType;
 
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
 
 public class TransactionDto {
 
+    private TransactionType type;
     private long id;
     private  String description;
     private LocalDateTime date;
     private double amount;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="Account_id")
-    private com.mindhub.homebanking.models.Account Account;
-    private TransactionType type;
+    private double currentAmount;
 
-    public TransactionDto (){}
-
-    public TransactionDto (TransactionType type, String description, LocalDateTime date, double amount){
-        this.type = type;
-        this.description = description;
-        this.date = date;
-        this.amount = amount;
+    public TransactionDto (){};
+    public TransactionDto (Transaction transaction){
+        this.id = transaction.getId();
+        this.type = transaction.getType();
+        this.description = transaction.getDescription();
+        this.date = transaction.getDate();
+        this.amount = transaction.getAmount();
+        this.currentAmount = transaction.getCurrentAmount();
     }
 
     public long getId() {
@@ -45,11 +41,12 @@ public class TransactionDto {
         return amount;
     }
 
-    public com.mindhub.homebanking.models.Account getAccount() {
-        return Account;
-    }
-
     public TransactionType getType() {
         return type;
     }
+
+    public double getCurrentAmount() {
+        return currentAmount;
+    }
+
 }

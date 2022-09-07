@@ -1,5 +1,6 @@
 package com.mindhub.homebanking.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.repository.query.FluentQuery;
 
@@ -19,6 +20,8 @@ public class Account {
     private LocalDateTime creationDate;
     private double balance;
 
+    private AccountType accountType;
+
     @ManyToOne
     @JoinColumn(name="client_id")
     private Client client;
@@ -28,10 +31,11 @@ public class Account {
 
     public Account(){}
 
-    public Account(String number, LocalDateTime creationDate, double balance){
+    public Account(String number, LocalDateTime creationDate, double balance, AccountType accountType){
         this.number = number;
         this.creationDate = creationDate;
         this.balance = balance;
+        this.accountType = accountType;
         //this.client = client;
 
     }
@@ -64,6 +68,7 @@ public class Account {
         this.balance = balance;
     }
 
+    @JsonIgnore
     public Client getClient() {
         return client;
     }
@@ -80,4 +85,11 @@ public class Account {
         this.transactionSet = transactionSet;
     }
 
+    public AccountType getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(AccountType accountType) {
+        this.accountType = accountType;
+    }
 }
