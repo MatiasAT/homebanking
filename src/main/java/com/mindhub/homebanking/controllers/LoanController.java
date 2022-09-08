@@ -1,12 +1,10 @@
 package com.mindhub.homebanking.controllers;
 
 
+import com.mindhub.homebanking.dtos.AddLoanDto;
 import com.mindhub.homebanking.dtos.LoanAplicationDto;
 import com.mindhub.homebanking.dtos.LoanDto;
-import com.mindhub.homebanking.models.Account;
-import com.mindhub.homebanking.models.Client;
-import com.mindhub.homebanking.models.ClientLoan;
-import com.mindhub.homebanking.models.Loan;
+import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,14 +38,35 @@ public class LoanController {
     TransactionRepository transactionRepository;
 
     @GetMapping("/loans")
-    public Set<LoanDto> getAllLoans(){
-          return this.loanRepository.findAll().stream().map(LoanDto::new).collect(Collectors.toSet());
+    public Set<LoanDto> getAllLoans(Authentication authentication){
+
+        Client currentClient = clientRepository.findByEmail(authentication.getName());
+
+
+        if(currentClient.getEmail().contains("@admin")==true){
+            return this.loanRepository.findAll().stream().filter(Loan -> Loan.getLoanType().equals(LoanType.PERSONAL_ADMIN)==true).map(LoanDto::new).collect(Collectors.toSet());
+        }
+        return this.loanRepository.findAll().stream().filter(Loan -> Loan.getLoanType().equals(LoanType.PERSONAL_ADMIN)!=true).map(LoanDto::new).collect(Collectors.toSet());
+
+    }
+    @PostMapping("/addLoan")
+    public ResponseEntity<Object> addLoan(@RequestBody AddLoanDto addLoanDto, Authentication authentication){
+
+        Client currentClient = clientRepository.findByEmail(authentication.getName());
+
+        if(!currentClient.getEmail().contains("@admin")){
+            return new ResponseEntity<>("Access denied", HttpStatus.FORBIDDEN);
+        }
+
+        Loan newLoan = new Loan(addLoanDto.getName(),addLoanDto.getMaxAmount(),addLoanDto.getPayments(),addLoanDto.getLoanRate(), addLoanDto.getLoanType());
+        loanRepository.save(newLoan);
+        return new ResponseEntity<>("Successfully created loan", HttpStatus.ACCEPTED);
     }
 
     @Transactional
     @PostMapping("/loans")
     public ResponseEntity<Object> newLoan(@RequestBody LoanAplicationDto loanAplicationDto, Authentication authentication){
-
+        System.out.print(loanAplicationDto);
 
         Double loanRate = loanRepository.findById(loanAplicationDto.getLoanId()).getLoanRate();
         //long loanId, double amount, int payments,String toAccountNumber

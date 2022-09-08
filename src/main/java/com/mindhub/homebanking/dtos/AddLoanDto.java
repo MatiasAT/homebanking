@@ -6,7 +6,7 @@ import com.mindhub.homebanking.models.LoanType;
 
 import java.util.List;
 
-public class LoanDto {
+public class AddLoanDto {
 
     private long id;
 
@@ -17,19 +17,18 @@ public class LoanDto {
     private Double loanRate;
     private LoanType loanType;
 
-    public LoanDto(){}
+    public AddLoanDto(){}
 
-    public LoanDto(Loan loan){
-        this.id = loan.getId();
-        this.name = loan.getName();
-        this.maxAmount = loan.getMaxAmount();
-        this.payments = loan.getPayments();
-        this.loanRate = loan.getLoanRate();
-        this.loanType = loan.getLoanType();
+    public AddLoanDto(String name, double maxAmount, List payments, Double loanRate, LoanType loanType){
+        this.name = name;
+        this.maxAmount = maxAmount;
+        this.payments = payments;
+        this.loanRate = loanRate;
+        this.loanType = loanType;
     }
 
     public long getId() {
-       return id;
+        return id;
     }
 
     public String getName() {

@@ -24,13 +24,16 @@ public class Loan {
     private List<Integer> payments = new ArrayList<>();
 
     private Double loanRate;
+    private LoanType loanType;
 
     public Loan(){}
 
-    public Loan(String name, double maxAmount, List payments, Double loanRate){
+    public Loan(String name, double maxAmount, List payments, Double loanRate, LoanType loanType){
+         this.name = name;
          this.maxAmount = maxAmount;
          this.payments = payments;
          this.loanRate = loanRate;
+         this.loanType = loanType;
 
     }
 
@@ -78,4 +81,11 @@ public class Loan {
         this.loanRate = loanRate;
     }
 
+    public LoanType getLoanType() {
+        return loanType;
+    }
+
+    public void setLoanType(LoanType loanType) {
+        this.loanType = loanType;
+    }
 }
