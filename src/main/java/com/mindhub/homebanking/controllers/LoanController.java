@@ -1,7 +1,7 @@
 package com.mindhub.homebanking.controllers;
 
 
-import com.mindhub.homebanking.dtos.AddLoanDto;
+import com.mindhub.homebanking.dtos.SetLoanDto;
 import com.mindhub.homebanking.dtos.LoanAplicationDto;
 import com.mindhub.homebanking.dtos.LoanDto;
 import com.mindhub.homebanking.models.*;
@@ -49,8 +49,8 @@ public class LoanController {
         return this.loanRepository.findAll().stream().filter(Loan -> Loan.getLoanType().equals(LoanType.PERSONAL_ADMIN)!=true).map(LoanDto::new).collect(Collectors.toSet());
 
     }
-    @PostMapping("/addLoan")
-    public ResponseEntity<Object> addLoan(@RequestBody AddLoanDto addLoanDto, Authentication authentication){
+    @PostMapping("/setLoan")
+    public ResponseEntity<Object> setLoan(@RequestBody SetLoanDto setLoanDto, Authentication authentication){
 
         Client currentClient = clientRepository.findByEmail(authentication.getName());
 
@@ -58,7 +58,7 @@ public class LoanController {
             return new ResponseEntity<>("Access denied", HttpStatus.FORBIDDEN);
         }
 
-        Loan newLoan = new Loan(addLoanDto.getName(),addLoanDto.getMaxAmount(),addLoanDto.getPayments(),addLoanDto.getLoanRate(), addLoanDto.getLoanType());
+        Loan newLoan = new Loan(setLoanDto.getName(), setLoanDto.getMaxAmount(), setLoanDto.getPayments(), setLoanDto.getLoanRate(), setLoanDto.getLoanType());
         loanRepository.save(newLoan);
         return new ResponseEntity<>("Successfully created loan", HttpStatus.ACCEPTED);
     }

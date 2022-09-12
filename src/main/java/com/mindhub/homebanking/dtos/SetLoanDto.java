@@ -1,12 +1,10 @@
 package com.mindhub.homebanking.dtos;
 
-import com.mindhub.homebanking.models.ClientLoan;
-import com.mindhub.homebanking.models.Loan;
 import com.mindhub.homebanking.models.LoanType;
 
 import java.util.List;
 
-public class AddLoanDto {
+public class SetLoanDto {
 
     private long id;
 
@@ -17,9 +15,9 @@ public class AddLoanDto {
     private Double loanRate;
     private LoanType loanType;
 
-    public AddLoanDto(){}
+    public SetLoanDto(){}
 
-    public AddLoanDto(String name, double maxAmount, List payments, Double loanRate, LoanType loanType){
+    public SetLoanDto(String name, double maxAmount, List payments, Double loanRate, LoanType loanType){
         this.name = name;
         this.maxAmount = maxAmount;
         this.payments = payments;

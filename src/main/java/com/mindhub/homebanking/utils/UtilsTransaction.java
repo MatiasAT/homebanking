@@ -49,6 +49,22 @@ public class UtilsTransaction {
         accountRepository.save(toAccount);
     }
 
+    static public void debitTransaction(String description, double amount, Account toAccount, TransactionRepository transactionRepository, AccountRepository accountRepository){
+
+        String transactionDescription = TransactionType.DEBIT.name();
+
+        Transaction debitTransaction = new Transaction(TransactionType.DEBIT, description +" || "+ transactionDescription, LocalDateTime.now(), amount,toAccount, toAccount.getBalance());
+
+        transactionRepository.save(debitTransaction);
+
+        double toAccountBalance = debitOperation(toAccount.getBalance(),amount);
+
+        toAccount.setBalance(toAccountBalance);
+
+        accountRepository.save(toAccount);
+    }
+
+
     static private double debitOperation(double fromBalance, double fromAmount){
         return (fromBalance - Math.abs(fromAmount));
     }

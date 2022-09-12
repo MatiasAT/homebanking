@@ -55,7 +55,7 @@ public class HomebankingApplication {
 			accountRepository.save(account1);
 
 
-			Transaction transaction2 = new Transaction(TransactionType.DEBIT, "Transferencia recibida", LocalDateTime.now(), 500, account1,account1.getBalance());
+			Transaction transaction2 = new Transaction(TransactionType.DEBIT, "Transferencia enviada", LocalDateTime.now(), 500, account1,account1.getBalance());
 			transactionRepository.save(transaction2);
 
 			account1.setBalance(account1.getBalance()-transaction2.getAmount());

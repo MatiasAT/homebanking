@@ -16,5 +16,6 @@ public interface CardRepository extends JpaRepository<Card,Long>{
     Card findByClientAndNumber(Client client, String number);
     Card findByCvv(String cvv);
     Card findByNumber(String number);
+    Card findByNumberAndCvv(String number, String cvv);
 
 }
